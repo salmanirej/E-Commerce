@@ -7,6 +7,7 @@ class Product(models.Model):
  PRDCategory=models.ForeignKey('category',on_delete=models.CASCADE,null=True,blank=True)
  PRDBrand=models.ForeignKey("settings.Brand",on_delete=models.CASCADE,null=True,blank=True)
  PRDdesc=models.TextField(verbose_name=_("Prodtuct Descrption"))
+ PRDImage=models.ImageField(upload_to='IMAGE', verbose_name=_("IMAGE"),null=True,blank=True)
  PRDprice=models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Prodtuct Price"))
  PRDcost=models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Prodtuct Cost"))
  PRDcreated =models.DateTimeField(verbose_name=_("Created At"))
@@ -16,7 +17,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
  PRDIProduct=models.ForeignKey(Product,on_delete=models.CASCADE,verbose_name=_("Product"))
- PRDIImage=models.ImageField(upload_to='IMAGE', verbose_name=_("Image"))
+ PRDIImage=models.ImageField(upload_to='IMAGE', verbose_name=_("IMAGE"))
  
  def __str__(self):
      return  self.PRDIProduct 
