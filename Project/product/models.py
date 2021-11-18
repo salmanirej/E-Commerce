@@ -1,24 +1,39 @@
 from django.db import models
 from django.utils import tree
 from django.utils.translation import ugettext_lazy as _
-
+from django.utils.text import slugify
+from django.urls import reverse
 class Product(models.Model):
- PRDname=models.CharField(max_length=100,verbose_name=_("Product Name") )
- PRDCategory=models.ForeignKey('category',on_delete=models.CASCADE,null=True,blank=True)
- PRDBrand=models.ForeignKey("settings.Brand",on_delete=models.CASCADE,null=True,blank=True)
+ PRDname=models.CharField(max_length=100,verbose_name=_("Name") )
+ PRDCategory=models.ForeignKey('category',on_delete=models.CASCADE,null=True,blank=True,verbose_name=_("category"))
+ PRDBrand=models.ForeignKey("settings.Brand",on_delete=models.CASCADE,null=True,blank=True ,verbose_name=_("Brand"))
  PRDdesc=models.TextField(verbose_name=_("Prodtuct Descrption"))
  PRDImage=models.ImageField(upload_to='IMAGE', verbose_name=_("IMAGE"),null=True,blank=True)
  PRDprice=models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Prodtuct Price"))
+ PRDDiscountPrice=models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Discount Price"))
  PRDcost=models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Prodtuct Cost"))
  PRDcreated =models.DateTimeField(verbose_name=_("Created At"))
-
+ PRDslug=models.SlugField(blank=True,null=True)
+ PRDNew=models.BooleanField(default=True)
+ PRDBestSeller=models.BooleanField(default=False)
  def __str__(self):
-     return self.PRDname
+      return self.PRDname
+ def  save(self,*args,**kwargs):
+   if not self.PRDslug :
+     self.PRDslug=slugify(self.PRDname)
+     super(Product , self).save(*args,**kwargs)
+  
+ def get_absolute_url(self):
+    return reverse('products:product_detail', kwargs={'slug': self.PRDslug})
+
+class meta():
+   verbose_name=_('product')
+   verbose_name_plueal=_('products')
 
 class ProductImage(models.Model):
  PRDIProduct=models.ForeignKey(Product,on_delete=models.CASCADE,verbose_name=_("Product"))
  PRDIImage=models.ImageField(upload_to='IMAGE', verbose_name=_("IMAGE"))
- 
+    
  def __str__(self):
      return  self.PRDIProduct 
 

@@ -1,121 +1,145 @@
- {% load static %}  
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link href="{%static 'site_static/css/bootstrap.min.css' %}" rel="stylesheet">
+{% block body %}
+  
+{% load static %}
+  
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Souq Store</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-         
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-              Categories 
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <div>
-          <a href=""> Cart</a>
-          <a href=""> SI</a>
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+{% if product_detail.PRDImage %}
+          <img src="{{product_detail.PRDImage.url}}" class="img-fluid img_detail" alt="">
+{% else %}
+   <img src="{% static 'site_static/img/No-Image.png' %}" class="img-fluid img_detail" alt="">
+{% endif %}
         </div>
-      </div>
-    </nav>
-<div class="container mt-5 " aria-hidden="true"> 
-           
-            <div class="row">
-                <div class="col-md-6">
-                  {% if product_detail.PRDImage %}
-                   <img class="card-img-top" src="{{product_detail.PRDImage.url}}"   > 
-                   {% else %}
-                   <img class="card-img-top" src="{%static 'site_static/img/NoImage.png' %}"   > 
+        <!--Grid column-->
 
-                  {% endif %}
-                </div>
-                <div class=" col-md-6 ">
-                     <h1 class="card-title">{{product_detail.PRDname}}</h1>
-                <h3 class="card-subtitle">globe type chair for rest</h3>
-                <p>Item Variant</p>
-               <div>
-                <form>
-                    <div class="form-group mt-2">
-                      
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="1">
-                      
-                    </div>
-                     
-                     
-                    <button type="submit" class="btn btn-primary">Add to cart</button>
-                  </form>
-                </div>
-                </div> 
-            </div>   
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
 
-            <div class="row mt-5">
-              <h3> Prodcut Description </h3> 
-                <p class="p-3 ">{{product_detail.PRDdesc}}</p>
+          <!--Content-->
+          <div class="p-4">
+
+            <div class="mb-3">
+              <a href="">
+                <span class="badge purple mr-1">Category 2</span>
+              </a>
+              {% if product_detail.PRDNew %}
+              <a href="">
+                <span class="badge blue mr-1">New</span>
+                
+              </a>
+              {% endif %}
+                {% if product_detail.PRDBestSeller %}
+              <a href="">
+                <span class="badge red mr-1">Bestseller</span>
+              </a>
+               {% endif %}
+               {% if product_detail.PRDDiscountPrice > 0 %}
+              <a href="">
+                <span class="badge green mr-1">Sale</span>
+              </a>
+               {% endif %}
             </div>
-         
+
+            <p class="lead">
+             {% if product_detail.PRDDiscountPrice > 0 %}
+              <span class="mr-1">
+                <del>${{product_detail.PRDprice}}</del>
+              </span>
             
-</div>
-<div class="container mt-5 " aria-hidden="true"> 
-<h1>Leave Your Review</h1>
-   <form>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Leave Your Review</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-        <label class="form-check-label" for="inlineRadio1">1</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-        <label class="form-check-label" for="inlineRadio2">2</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
-        <label class="form-check-label" for="inlineRadio3">3 </label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
-        <label class="form-check-label" for="inlineRadio3">4</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
-        <label class="form-check-label" for="inlineRadio3">5 </label>
-      </div>
-    <button type="submit" class="btn btn-primary">Add to Review</button>
-  </form>
-</div>
 
-      <script src="static/js/bootstrap/bootstrap.bundle.min.js" ></script>
+              <span>${{product_detail.PRDDiscountPrice}}</span>
 
-</body>
-</html>
+                {% else %}
+ 
+
+              <span>${{product_detail.PRDprice}}</span>
+
+
+                {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Description</p>
+
+            <p>{{product_detail.PRDdesc}}</p>
+
+            <form class="d-flex justify-content-left">
+              <!-- Default input -->
+              <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+              <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </button>
+
+            </form>
+
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <hr>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 text-center">
+
+          <h4 class="my-4 h4">Accessories</h4>
+
+          {% comment %} <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+            voluptates,
+            quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p> {% endcomment %}
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-12 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+<p>Accessories</p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+<p>Accessories</p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+<p>Accessories</p>
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock body %}

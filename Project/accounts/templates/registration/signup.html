@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+ <main>
+    <div class="container mt-5">
+<form action="" method="post">
+{% csrf_token %}
+{{form}}
+ <button type="submit" class="btn btn-primary">Sgin Up</button>
+</form>
+    </div>
+  </main>
+{% endblock body %}
