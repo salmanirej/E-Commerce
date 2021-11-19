@@ -1,4 +1,4 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect ,get_object_or_404
 from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
 from django.contrib.auth import login,authenticate
 from .models import Profile
@@ -19,4 +19,8 @@ def signup(request):
     context={'form':form}
     return render(request,'registration/signup.html',context)
 
-
+def profile(requset ,slug):
+    profile=get_object_or_404(Profile,slug =slug)
+    context ={'profile':profile}
+    return render(requset,'registration/profile.html',context)
+   
